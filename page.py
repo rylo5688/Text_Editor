@@ -4,7 +4,7 @@ def onKeyPress(event):
     text.insert('insert', '%s' % (event.char, ))
     content.append(event.char)
 
-class createPage(object):
+class Page(object):
     def save(object): #runs when the save button is clicked
         newContents = object.text.get(0.0, 'end') #gets all the contents from the text widget
         uFile = open(object.file + ".txt", "w+") #opens the file in writing mode
@@ -25,7 +25,12 @@ class createPage(object):
     def __init__(self, fileName):
         self.page = Tkinter.Tk()
         self.page.title(fileName)
-        self.page.geometry('450x450')
+
+        #setting the page geometry
+        screen_width = str(self.page.winfo_screenwidth())
+        screen_height = str(self.page.winfo_screenheight())
+        self.page.geometry(screen_width+'x'+screen_height)
+
         #containter for the button
         self.page.buttonframe = Tkinter.Frame(self.page)
         self.page.buttonframe.grid(row=0, column=1)
@@ -54,7 +59,3 @@ class createPage(object):
 
         self.page.mainloop()
         self.page.bind('<KeyPress>', onKeyPress)
-
-#try to create a text class
-if __name__ == '__main__':
-    testPage = createPage("openFile")
